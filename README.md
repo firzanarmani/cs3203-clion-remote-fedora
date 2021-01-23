@@ -12,9 +12,22 @@ This Docker container is also set up for remote toolchain integration with CLion
    docker build -t cs3203/fedora-dev-env -f Dockerfile.cs3203-dev .
    ```
 3. Create and run the container (for the first time) using the built image with:
-   ```
-   docker run -d --cap-add sys_ptrace -p127.0.0.1:2222:22 --name fedora-dev-env cs3203/fedora-dev-env
-   ```
+   - If you intend to simply use it as a target build environment (or you're developing in Visual Studio or others)
+     ```
+     docker run -d --cap-add sys_ptrace --mount type=bind,source=<PathToCodeDirectory>,target=/home/user/cs3203  --name fedora-dev-env cs3203/fedora-dev-env
+     ```
+     - Note that for Linux or MacOS systems, the `<PathToCodeDirectory>` can use the `$(pwd)` subcommand for the current working directory as in:
+       ```
+       ...,source="$(pwd)"/CS3203/Team06/Code06,...
+       ```
+       but for Windows systems, the `<PathToCodeDirectory>` should be an absolute path as in:
+       ```
+       ...,source=c:\CS3203\Team06\Code06,... 
+       ```
+   - If you intend to develop in CLion using the Full Remote Mode
+     ```
+     docker run -d --cap-add sys_ptrace -p127.0.0.1:2222:22 --name fedora-dev-env cs3203/fedora-dev-env
+     ```
 
    Note: It's also a good idea to remove [localhosts]:2222 if it exists in your system's SSH known_hosts file. The following command tries to find an entry and removes it if it exists:
    ```
@@ -33,6 +46,12 @@ This Docker container is also set up for remote toolchain integration with CLion
 > docker exec -it fedora-dev-env /bin/bash
 > ```
 > This can also be done in the Docker Desktop application.
+
+## Using as a Target Build Environment in CLI
+1. Ensure that the `fedora-dev-env` container is running.
+2. Open the CLI for the container in the Docker Desktop application or start a new terminal session and run `docker exec -it fedora-dev-env /bin/bash` to attach to the container's CLI.
+3. Navigate to the target folder specified during `docker run`, i.e. `cd /home/user/cs3203` and ensure that the source folder has been properly bind-mounted.
+4. Carry on build instructions as per the CS3203 Wiki guide [here](https://github.com/nus-cs3203/project-wiki/wiki/Cross-platform-Startup-SPA-Solution#25-working-on-fedora-32-linux-using-terminal)
 
 ## Full Remote Mode with CLion
 1. Ensure that the `fedora-dev-env` container is running.
@@ -75,9 +94,6 @@ This Docker container is also set up for remote toolchain integration with CLion
 > - Go to `File > Invalidate Caches / Restart` and select `Invalidate and Restart`
 > - Once CLion restarts, CMake build should run automatically and the bug should be fixed
 7. Build configurations are now automatically added as seen in the top right of the window.
-
-## TODO
-- Add Docker volume mounting argument for non-SSH file access in Getting Started Step 3
 
 ## References
 - https://github.com/nus-cs3203/project-wiki/wiki/Cross-platform-Startup-SPA-Solution
