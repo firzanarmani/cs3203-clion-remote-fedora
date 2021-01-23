@@ -84,9 +84,9 @@ This Docker container is also set up for remote toolchain integration with CLion
    - Under `Excluded Paths` tab:
    ![Excluded Paths](screenshots/6.png "Excluded Paths")
       - `Local path` pointing to the `build directory` specified in step 4
-        - Note that this will show a `...\<path>... is out of project` warning. You can ignore this warning.
+        - Note that this will show a `...<path>... is out of project` warning. You can ignore this warning.
 6. Close the Preferences window by click on the `OK` button. CMake should automatically reload the project using these new settings. If it does not, go to `File > Reload CMake Project`.
-> You may encounter the following error in reloading the CMake project: `Cannot resolve path: \<build directory>`\
+> You may encounter the following error in reloading the CMake project: `Cannot resolve path: <build directory>`\
 > ![Cannot resolve path](screenshots/7.png "Cannot resolve path")
 > This is a bug that has been raised to the CLion developers as seen [here](https://youtrack.jetbrains.com/issue/CPP-23652). To work around this:
 > - Go to `Help > Find Actions` and enter `Registry`
