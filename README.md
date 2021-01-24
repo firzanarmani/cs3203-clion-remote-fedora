@@ -9,7 +9,7 @@ This Docker container is also set up for remote toolchain integration with CLion
 1. Ensure that you have [Docker](https://docs.docker.com/get-docker/) installed on your system.
 2. Build the Docker image using the Dockerfile with:
    ```
-   docker build -t cs3203/fedora-dev-env -f Dockerfile.cs3203-dev .
+   docker build -t cs3203/fedora-dev-env -f Dockerfile.cs3203-fedora .
    ```
 3. Create and run the container (for the first time) using the built image with:
    - If you intend to simply use it as a target build environment (or you're developing in Visual Studio or others)
