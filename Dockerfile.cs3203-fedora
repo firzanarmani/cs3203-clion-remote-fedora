@@ -9,6 +9,7 @@ RUN dnf -y update \
     gdb \
     rsync \
     tar \ 
+    procps \
     && dnf clean all
 
 RUN ssh-keygen -A
